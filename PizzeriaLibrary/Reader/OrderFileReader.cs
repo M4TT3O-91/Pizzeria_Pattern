@@ -15,7 +15,6 @@ namespace PizzeriaLibrary
                 if (!firstLine.Equals(header))
                     throw new Exception("File non conforme!");
 
-
                 while (!stream.EndOfStream)
                 {
                     var row = stream.ReadLine();
@@ -23,9 +22,9 @@ namespace PizzeriaLibrary
 
                     yield return new PizzaOrder
                     {
-                        BasePizza = splitted[0],
-                        Impasto = splitted[1],
-                        Ingredients = splitted[2].Split(",").ToList(),
+                        BasePizza = splitted[0].ToLower(),
+                        Impasto = splitted[1].ToLower(),
+                        Ingredients = splitted[2].ToLower().Split(",").ToList(),
                     };
                 }
 

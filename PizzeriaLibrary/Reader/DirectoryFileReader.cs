@@ -8,8 +8,6 @@ namespace PizzeriaLibrary.Reader
         {
             var orderReader = new OrderFileReader();
             var dir = Directory.GetFiles(path);
-            List<PizzaOrder> orderList = new List<PizzaOrder>();
-
             foreach (var file in dir)
             {
                 var order = orderReader.ReadOrder(file);
