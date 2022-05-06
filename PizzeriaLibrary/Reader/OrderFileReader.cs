@@ -27,8 +27,15 @@ namespace PizzeriaLibrary
                         Ingredients = splitted[2].ToLower().Split(",").ToList(),
                     };
                 }
-
             }
         }
     }
 }
+
+
+/*
+ * var components = impastoList = new Dictionary<string, decimal>()
+ * {
+ *  {"normale", 0M},
+ *  {"integrale", 1M}
+ * }
