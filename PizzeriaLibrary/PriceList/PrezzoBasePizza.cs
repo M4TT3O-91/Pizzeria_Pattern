@@ -1,18 +1,18 @@
 ﻿namespace PizzeriaLibrary.PriceList
 {
-    public class PrezzoImpasto : IPriceHandler
+    public class PrezzoBasePizza : IPriceHandler
     {
         private Dictionary<string, decimal> _priceList;
 
-        public PrezzoImpasto()
+        public PrezzoBasePizza()
         {
             _priceList = new Dictionary<string, decimal>()
             {
-                {"normale", 0M},
-                {"integrale", 1M}
+                {"margherita", 5M},
+                {"pepperoni", 7M},
+                {"napoletana", 3M}
             };
         }
-
         public decimal GetPrice(string item)
         {
             return _priceList[item];
