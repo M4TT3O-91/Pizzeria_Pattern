@@ -8,6 +8,6 @@ namespace PizzeriaLibrary.Chain
 
         public void SetNext(PriceHandler nextHandler) { _next = nextHandler; }
 
-        public abstract void HandleRequest(PizzaOrder pizza);
+        public abstract decimal HandleRequest(PizzaOrder pizza);
     }
 }

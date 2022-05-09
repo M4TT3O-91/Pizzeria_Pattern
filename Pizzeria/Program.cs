@@ -1,31 +1,46 @@
 ﻿using PizzeriaLibrary;
-using PizzeriaLibrary.Entities;
-//var ingred = new List<string>();
+using PizzeriaLibrary.Chain;
+using PizzeriaLibrary.Reader_Writer;
+using System.Text;
 
-//ingred.Add("prosciutto");
-//ingred.Add("funghi");
-//ingred.Add("olive");
+int orderID = 1;
 
-//var pizza = new PizzaOrder
-//{
-//    BasePizza = "margherita",
-//    Impasto = "Integrale",
-//    Ingredients = ingred,
-//};
+var basePizzaHandler = new BasePizzaPriceHandler();
+var impastoPizzaHandler = new ImpastoPriceHandler();
+var ingredientiHandler = new IngredientPriceHandler();
 
-//Console.WriteLine(pizza);
+basePizzaHandler.SetNext(impastoPizzaHandler);
+impastoPizzaHandler.SetNext(ingredientiHandler);
+
+var orderPriceList = new List<Decimal>();
 
 var fileReader = new OrderFileReader();
+var fileWriter = new OrderFileWriter();
+StringBuilder myStringBuilder = new StringBuilder();
 
-
-var dir = Directory.GetFiles(Constants.DIR_PATH);
-foreach(var file in dir)
+try
 {
-    var order = fileReader.ReadOrder(file);
-    order.ToList().ForEach(x => Console.WriteLine(x));
-}
-Console.WriteLine(dir);
+    var dir = Directory.GetFiles(Constants.DIR_PATH);
+    foreach (var file in dir)
+    {
+        var order = fileReader.ReadOrder(file).ToList();
+        foreach (var pizza in order)
+        {
+            orderPriceList.Add(basePizzaHandler.HandleRequest(pizza));
+        }
 
+        var total = orderPriceList.Sum();
+        myStringBuilder.AppendLine($"Ordine: {orderID++} Totale: {total}");
+
+        Console.WriteLine($"Ordine: {orderID++} Totale: {total}");
+        
+    }
+    fileWriter.WriteToFile(Constants.DIR_PATH,myStringBuilder.ToString());
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"ERROR: {ex.Message}");
+}
 
 
 Console.ReadLine();

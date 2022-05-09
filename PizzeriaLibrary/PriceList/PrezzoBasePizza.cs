@@ -15,6 +15,8 @@
         }
         public decimal GetPrice(string item)
         {
+            if (!_priceList.ContainsKey(item))
+                return 0;
             return _priceList[item];
         }
     }

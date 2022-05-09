@@ -5,15 +5,24 @@ namespace PizzeriaLibrary.Chain
 {
     public class IngredientPriceHandler : PriceHandler
     {
-        public override void HandleRequest(PizzaOrder pizza)
+        public override decimal HandleRequest(PizzaOrder pizza)
         {
             decimal totPrice = 0M;
 
             PrezzoIngredienti prezzoIngredienti = new PrezzoIngredienti();
 
-            Console.WriteLine(prezzoIngredienti.GetPrice[pizza.Ingredients]);
+            if (pizza.Ingredients.Any())
+            {
+                foreach (var item in pizza.Ingredients)
+                {
+                    totPrice += prezzoIngredienti.GetPrice(item);
+                }
+            }
+            
+            //Console.WriteLine(totPrice);
 
             _next?.HandleRequest(pizza);
+            return totPrice;
         }
     }
 }

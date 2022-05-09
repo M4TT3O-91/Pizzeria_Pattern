@@ -13,14 +13,12 @@
                 {"crudo", 3M}
             };
         }
-        public decimal GetPrice(List<string>? ingredients)
+
+        public decimal GetPrice(string item)
         {
-            decimal price = 0;
-            foreach (var item in ingredients)
-            {
-                price += _priceList[item];
-            }
-            return price;
+            if (!_priceList.ContainsKey(item))
+                return 0;
+            return _priceList[item];
         }
     }
 }
