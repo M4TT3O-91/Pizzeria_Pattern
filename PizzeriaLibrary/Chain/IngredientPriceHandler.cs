@@ -13,6 +13,7 @@ namespace PizzeriaLibrary.Chain
 
             Console.WriteLine(prezzoIngredienti.GetPrice[pizza.Ingredients]);
 
+            _next?.HandleRequest(pizza);
         }
     }
 }

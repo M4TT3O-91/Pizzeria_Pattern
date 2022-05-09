@@ -13,7 +13,7 @@
                 {"crudo", 3M}
             };
         }
-        public decimal GetPrice(List<string> ingredients)
+        public decimal GetPrice(List<string>? ingredients)
         {
             decimal price = 0;
             foreach (var item in ingredients)
